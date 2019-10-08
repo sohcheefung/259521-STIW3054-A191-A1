@@ -3,32 +3,10 @@ package com.mycompany.mavenproject4;
 /**
  *
  * @author Chee Fung
- 
+*/ 
 
-import java.io.IOException;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-
-public class link {
-  public static void main(String[] args) throws IOException {
-      
-      Document doc = Jsoup.connect("https://github.com/STIW3054-A191/Main-Issues/issues/1").get();
-      String title = doc.title();
-      System.out.println("title :"+title);
-      
-      Elements links = doc.select("a[href]");
-      
-      for (Element link: links)
-      {
-          System.out.println("\nlink :"+link.attr("href"));
-          System.out.println("text: "+link.text());
-      }    
-      
-  }
-}*/
+import java.util.ArrayList;
+import java.util.List;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,26 +22,93 @@ import java.io.IOException;
 
 
 public class link {
-    public static void main(String[] args) throws IOException {
+    public List<Data> FindAll() {
+    
+        try{
         Document doc = Jsoup.connect("https://github.com/STIW3054-A191/Main-Issues/issues/1").get();
         String title = doc.title();
         System.out.println("title :"+title);
         System.out.println("----------------------------------------------------------------");
+        List<Data> result = new ArrayList<Data>();
         
       
             Elements data = doc.getElementsByClass("js-timeline-item js-timeline-progressive-focus-container");
-            //Elements data = doc.getElementsByTag("p");
-            for (Element content : data){
+            for (int i = 0; i<data.size(); i++){
+            Elements content = data.get(i).getElementsByTag("p");
+                for (int j=0; j<content.size(); j++){
                 
-                String contentName = content.getElementsByTag("p").text();
-              
-             
-                System.out.println(contentName);
+                String ResultMatric = null;
+                Pattern Matric = Pattern.compile("(\\d{6})");
+                Matcher matricNo = Matric.matcher(content.get(j).text());
+                if(matricNo.find()){
+        
+                System.out.print(i+" "+" Matric No: "+ matricNo.group());
+                ResultMatric = matricNo.group();
                 }
-
+                else{
+                    System.out.print(i);
+                }
+                
+                String NameResult = null;
+                Pattern Name1 = Pattern.compile("(Name)(.*)(Matric)");
+                Matcher NamePerson1 = Name1.matcher(content.get(j).text());
+                
+                Pattern Name2 = Pattern.compile("(name)(.*)(link)");
+                Matcher NamePerson2 = Name2.matcher(content.get(j).text());
+                
+                Pattern Name3 = Pattern.compile("(Name)(.*)(Link)");
+                Matcher NamePerson3 = Name3.matcher(content.get(j).text());
+                if (NamePerson1.find()){
+                    System.out.print(" Name "+NamePerson1.group(2));
+                    NameResult = NamePerson1.group(2);
+                }
+                else if(NamePerson2.find()){
+                    System.out.print(" Name "+NamePerson2.group(2));
+                       NameResult = NamePerson2.group(2);
+                }
+                else if(NamePerson3.find()){
+                        System.out.print(" Name "+NamePerson3.group(2));  
+                        NameResult = NamePerson3.group(2);
+                        }
+                else{
+                     System.out.print(" ");  
+                }
+                
+                Pattern Link = Pattern.compile("https://.*");
+                Matcher Githublink = Link.matcher(content.get(j).text());
+                
+                if(Githublink.find()){
+                        System.out.println(" Link "+Githublink.group());  
+                        }
+                else{
+                     System.out.print(" ");  
+                 }
+                
+                 result.add(new Data(ResultMatric, NameResult, Githublink.group()));
+                }
             }
+            return result;
+
+            }catch (Exception e){
+           return null;
+            }
+        
+        
+    }
+
+    
+}
+                
+        
+        
+        
+
+    
+         
+
+           
             
-        }
+        
     
 
 

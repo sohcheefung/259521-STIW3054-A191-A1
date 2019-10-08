@@ -8,8 +8,11 @@ package com.mycompany.mavenproject4;
 public class app {
         public static void main(String[] args) {
             try{
-                saveToExcel save = new saveToExcel();
-                save.saveData();
+                //saveToExcel save = new saveToExcel();
+                //save.saveData();
+                
+                saveToExcel_1 save1 = new saveToExcel_1();
+                save1.saveData();
 
                 System.out.println("\n\nSaving data to Excel...");
                 Thread.sleep(2000);// wait for 2 second
