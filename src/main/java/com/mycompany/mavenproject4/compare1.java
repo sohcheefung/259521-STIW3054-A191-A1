@@ -4,7 +4,6 @@ package com.mycompany.mavenproject4;
  *
  * @author Chee Fung
  */
-import static com.mycompany.mavenproject4.compare.columnNumForFirst;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,7 +28,7 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 
 public class compare1 {
 
-   public static void main(String[] args) throws IOException{
+   public static void main(String[] args) {
         try{
             ArrayList arr1 = new ArrayList<>();
 	    ArrayList arr2 = new ArrayList<>();
@@ -47,59 +46,9 @@ public class compare1 {
             HSSFSheet sheet = workbook.getSheetAt(0);
             HSSFSheet sheet1 = workbook1.getSheetAt(0);
             
-            //int rowStart1 = sheet.getFirstRowNum();
-            int rowEnd1 = sheet.getLastRowNum();
-            
-            for (int rowNum = 1; rowNum <= rowEnd1; rowNum++){
-                Row row1 = sheet.getRow(rowNum);
-                
-                if (row1 == null){
-                    System.out.print(" ");
-                }
-             Cell cell0 = row1.getCell(0);
-             Cell cell1 = row1.getCell(1);
-             Cell cell2 = row1.getCell(2);
-             for (Cell cell : new Cell[]{cell0,cell1,cell2}){
-                 switch(cell.getCellType()){
-                     case NUMERIC:
-                         System.out.print(cell.getNumericCellValue()+"\t");
-                         break;
-                         case STRING:
-                         System.out.print(cell.getStringCellValue()+"\t");
-                         break;
-                 }
-               }
-             System.out.println(" ");
-               
-             }
-            System.out.println("\n----------------------------------------");
-            //int rowStart2 = sheet1.getFirstRowNum();
-            int rowEnd2 = sheet1.getLastRowNum();
-            
-            for(int rowNum = 1; rowNum <= rowEnd2; rowNum++){
-               Row row2 = sheet1.getRow(rowNum);
-               
-               if (row2 == null){
-                   System.out.print(" ");
-               }
-               Cell cell0 = row2.getCell(0);
-               Cell cell1 = row2.getCell(1);
-               Cell cell2 = row2.getCell(2);
-               for(Cell cell : new Cell[]{cell0,cell1,cell2}){
-               
-                 switch(cell.getCellType()){
-                     case NUMERIC:
-                         System.out.print(cell.getNumericCellValue()+"\t");
-                         break;
-                         case STRING:
-                         System.out.print(cell.getStringCellValue()+"\t");
-                         break;
-                 }
-               }
-              System.out.println(" ");
-            }
-          file.close();
-          
+            Iterator<Row> rowIterator1 = sheet.iterator();
+            Iterator<Row> rowIterator2 = sheet1.iterator();
+      
            int rowLast1 = sheet.getLastRowNum();
            for(int i = 1; i <= rowLast1; i++){
                Row rowRead1 = sheet.getRow(i);
@@ -109,29 +58,34 @@ public class compare1 {
                Cell column0 = rowRead1.getCell(0);
                Cell column1 = rowRead1.getCell(1);
                Cell column2 = rowRead1.getCell(2);
+               
                for(Cell cell : new Cell[]{column1}){
                  switch(cell.getCellType()){
-                     case NUMERIC:
+                         case NUMERIC:
                          arr1.add(cell.getNumericCellValue());
                          break;
                          case STRING:
                          arr1.add(cell.getStringCellValue());
                          break;  
-                 }
+                  }
                }
            }
+          
            int rowLast2 = sheet1.getLastRowNum();
-           for(int i = 1; i <= rowLast2; i++){
-               Row rowRead2 = sheet1.getRow(i);
+           for(int j = 1; j <= rowLast2; j++){
+               Row rowRead2 = sheet1.getRow(j);
                 if (rowRead2 == null){
                    System.out.print(" ");
                }
                Cell column0 = rowRead2.getCell(0);
                Cell column1 = rowRead2.getCell(1);
                Cell column2 = rowRead2.getCell(2);
+               if (column0 == null){
+                   System.out.print(" ");
+               }
                for(Cell cell : new Cell[]{column0}){
                  switch(cell.getCellType()){
-                     case NUMERIC:
+                         case NUMERIC:
                          arr2.add(cell.getNumericCellValue());
                          break;
                          case STRING:
@@ -145,28 +99,74 @@ public class compare1 {
 	           arr3.add(process);
               }
             }
-            for (Object process : arr1) {
+           for (Object process : arr1) {
 	     if (arr2.contains(process)) {
 	           arr4.add(process);
               } 
             }
-            System.out.println("Student who did not submit : " + arr3);
-            System.out.println("student who submit: " + arr4);
-            writeResultDataToExcel(arr3);
-            writeResultDataToExcel1(arr4);
+         
+
+            System.out.println("Student who did not submit : ");
+           
+           // writeResultDataToExcel(arr3);
+            //writeResultDataToExcel1(arr4);
+            System.out.format("| %-10s| %-20s| %-40s\n", "No","Matric","Name");
+            System.out.println("---------------------------------------------------");
+            int a = 0;
+                        while (rowIterator1.hasNext()){
+                            Row row = rowIterator1.next();
+                            
+                            for(Object matric: arr3){
+                                if (row.getCell(1).toString().equals(matric)){
+                                    
+                                    a++;
+                                     System.out.printf("| %-10s| %-20s| %-40s\n",a,row.getCell(1),row.getCell(2));
+                                }
+                            }
+                        } 
+                   
+                System.out.println("student who submit: ");
+              System.out.format("| %-10s| %-20s| %-40s| %-20s\n", "No","Matric","Name","Link");
+            int b = 0;
+                        while (rowIterator2.hasNext()){
+                            Row row = rowIterator2.next();
+                            
+                            for(Object matric: arr4){
+                                if (row.getCell(0).toString().equals(matric)){
+                                    
+                                    b++;
+                                     System.out.printf("| %-10s| %-20s| %-40s| %-20s\n",b,row.getCell(0),row.getCell(1),row.getCell(2));
+                                }
+                            }
+                        } 
+                     
+                            /*int rowlast = sheet1.getLastRowNum();
+                            for(int k = 1; k <=rowlast; k++){
+                               
+                                Row row = sheet1.getRow(k);
+                                int columnlast = row.getLastCellNum();
+                                for(int c = 0; c <=columnlast; c++){
+                                    Cell cell = row.getCell(c);
+                                for(Object matric: arr3){
+                                if (row.getCell(1).toString().equals(matric)){
+                                    
+                                     a++;
+                                     System.out.format("| %-10s| %-20s| %-40s| %-20s\n",a,row.getCell(1),row.getCell(2),row.getCell(3));
+                                }
+                            }
+                        }
+                    }*/
             
            // closing the files
-	file.close();
-        file1.close();
+	
             
-            } catch (FileNotFoundException e) {
-	    e.printStackTrace();
+           
             }catch (IOException e) {
 	    e.printStackTrace();
             
-		}
+	}
     }
-   private static void writeResultDataToExcel(ArrayList arr3)  {
+ /*  private static void writeResultDataToExcel(ArrayList arr3)  {
 
 		FileOutputStream resultExcel = null;
 		try {
@@ -215,7 +215,7 @@ public class compare1 {
                   }catch (IOException e) {
 	           e.printStackTrace();
 		}
-        }
+        }*/
     
 }
         

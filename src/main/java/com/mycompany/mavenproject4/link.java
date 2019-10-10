@@ -33,20 +33,26 @@ public class link {
         
       
             Elements data = doc.getElementsByClass("js-timeline-item js-timeline-progressive-focus-container");
-            for (int i = 0; i<data.size(); i++){
+            for (int i = 1; i<data.size(); i++){
             Elements content = data.get(i).getElementsByTag("p");
                 for (int j=0; j<content.size(); j++){
                 
                 String ResultMatric = null;
                 Pattern Matric = Pattern.compile("(\\d{6})");
                 Matcher matricNo = Matric.matcher(content.get(j).text());
+                
+                Pattern Matric1 = Pattern.compile("(\\d{5})");
+                Matcher matricNo1 = Matric1.matcher(content.get(j).text());
                 if(matricNo.find()){
-        
                 System.out.print(i+" "+" Matric No: "+ matricNo.group());
                 ResultMatric = matricNo.group();
                 }
+                else if(matricNo1.find()){
+                System.out.print(i+" "+" Matric No: "+ matricNo1.group());
+                ResultMatric = matricNo1.group();
+                }
                 else{
-                    System.out.print(i);
+                    System.out.print(" ");
                 }
                 
                 String NameResult = null;

@@ -24,7 +24,7 @@ public class saveToExcel_1 {
             
             //Create Heading
             Row rowHeading = sheet.createRow(0);
-             rowHeading.createCell(0).setCellValue("  Matric No ");
+             rowHeading.createCell(0).setCellValue("         Matric        ");
             rowHeading.createCell(1).setCellValue("         Name             ");
             rowHeading.createCell(2).setCellValue("         Github Link      ");
 
