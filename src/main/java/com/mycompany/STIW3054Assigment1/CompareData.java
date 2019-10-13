@@ -31,6 +31,7 @@ public class CompareData {
             ArrayList array3 = new ArrayList<>();
             ArrayList array4 = new ArrayList<>();
            
+            //input excel file location
             FileInputStream file = new FileInputStream(new File("D:\\GithubWikiTable.xls"));
             FileInputStream file1 = new FileInputStream(new File("D:\\GithubMainIssue.xls"));
             
@@ -86,21 +87,21 @@ public class CompareData {
                 }
             }
             //Compare the value between array1 and array2 for different
-            for (Object process : array1) {
-	     if (array2.contains(process)) {
-	           array3.add(process);
+            for (Object data : array1) {
+	     if (array2.contains(data)) {
+	           array3.add(data);
               }
             }
-           for (Object process : array1) {
-	     if (!array2.contains(process)) {
-	           array4.add(process);
+           for (Object data : array1) {
+	     if (!array2.contains(data)) {
+	           array4.add(data);
               } 
             }
-        
+            //display the compare result
             Iterator<Row> rowIterator1 = sheet.iterator();
             Iterator<Row> rowIterator2 = sheet1.iterator();
             
-            System.out.println("student who submit: ");
+            System.out.println("STUDENT WHO SUBMIT GITHUB ACCOUNT: ");
             System.out.println("------------------------------------------------------------------------------------------------------------------");
             System.out.format("| %-5s| %-17s| %-50s| %-70s\n", "No.","Matric","Name","Link");
             System.out.println("------------------------------------------------------------------------------------------------------------------");
@@ -116,7 +117,7 @@ public class CompareData {
                             }
                         } 
     
-            System.out.println("Student who did not submit : ");
+            System.out.println("STUDENT WHO DOES NOT SUBMIT GITHUB ACCOUNT: ");
             System.out.println("-----------------------------------------------------------");
             System.out.format("| %-5s| %-17s| %-50s\n", "No.","Matric","Name");
             System.out.println("-----------------------------------------------------------");
