@@ -30,6 +30,7 @@ public class CompareData {
 	    ArrayList array2 = new ArrayList<>();
             ArrayList array3 = new ArrayList<>();
             ArrayList array4 = new ArrayList<>();
+            ArrayList array5 = new ArrayList<>();
            
             //input excel file location
             FileInputStream file = new FileInputStream(new File("D:\\GithubWikiTable.xls"));
@@ -97,22 +98,28 @@ public class CompareData {
 	           array4.add(data);
               } 
             }
+            for (Object data : array2){
+              if (!array1.contains(data)){
+                   array5.add(data);
+               }
+           }
             //display the compare result
             Iterator<Row> rowIterator1 = sheet.iterator();
             Iterator<Row> rowIterator2 = sheet1.iterator();
+            Iterator<Row> rowIterator3 = sheet1.iterator();
             
             System.out.println("STUDENT WHO SUBMIT GITHUB ACCOUNT: ");
             System.out.println("------------------------------------------------------------------------------------------------------------------");
             System.out.format("| %-5s| %-17s| %-50s| %-70s\n", "No.","Matric","Name","Link");
             System.out.println("------------------------------------------------------------------------------------------------------------------");
-            int b = 0;
+            int a = 0;
                         while (rowIterator2.hasNext()){
                             Row row = rowIterator2.next();
                                 for(Object matric: array3){
                                     //check if the row value match the array
                                     if (row.getCell(0).toString().equals(matric)){
-                                    b++;
-                                    System.out.printf("| %-5s| %-17s| %-50s| %-70s\n",b,row.getCell(0),row.getCell(1),row.getCell(2));
+                                    a++;
+                                    System.out.printf("| %-5s| %-17s| %-50s| %-70s\n",a,row.getCell(0),row.getCell(1),row.getCell(2));
                                 }
                             }
                         } 
@@ -121,16 +128,31 @@ public class CompareData {
             System.out.println("-----------------------------------------------------------");
             System.out.format("| %-5s| %-17s| %-50s\n", "No.","Matric","Name");
             System.out.println("-----------------------------------------------------------");
-            int a = 0;
+            int b = 0;
                         while (rowIterator1.hasNext()){
                             Row row = rowIterator1.next();
                                 for(Object matric: array4){
                                     if (row.getCell(1).toString().equals(matric)){
-                                    a++;
-                                    System.out.printf("| %-5s| %-17s| %-50s\n",a,row.getCell(1),row.getCell(2));
+                                    b++;
+                                    System.out.printf("| %-5s| %-17s| %-50s\n",b,row.getCell(1),row.getCell(2));
                                 }
                             }
-                        } 
+                        }
+           System.out.println("UNKNOWN LIST: ");
+           System.out.println("--------------------------------------------------------------------------------------------------------------------");
+           System.out.format("| %-5s| %-17s| %-50s| %-70s\n", "No.","Matric","Name","Link");
+           System.out.println("--------------------------------------------------------------------------------------------------------------------");
+           int c = 0;
+                        while (rowIterator3.hasNext()){
+                            Row row = rowIterator3.next();
+                                for(Object matric: array5){
+                                    if (row.getCell(0).toString().equals(matric)){
+                                    c++;
+                                    System.out.printf("| %-5s| %-17s| %-50s| %-70s\n",c,row.getCell(0),row.getCell(1),row.getCell(2));
+                                }
+                            }
+                        }             
+                       
                    
             }catch (Exception e) {
 	    e.printStackTrace(); 
