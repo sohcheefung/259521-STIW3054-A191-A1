@@ -1,4 +1,4 @@
-package com.mycompany.STIW3054Assigment1;
+package com.mycompany;
 
 /**
  *
