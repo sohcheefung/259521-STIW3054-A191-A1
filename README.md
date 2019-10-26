@@ -1,9 +1,11 @@
 # 259521-STIW3054-A191-A1
-# SOH CHEE FUNG 259521
-# Program run using Netbeans 11.1 (Can only use up to jdk 12 and maven latest version)
+# STUDENT INFO
+SOH CHEE FUNG 259521
+# INTRODUCTION
+Program run using Netbeans 11.1 (Can only use up to jdk 12 and maven latest version)
 You are required to develop a small system using MAVEN and Java programming language.
 
-
+# OUTPUT
 Output for Table List of Student:
 ![Output 1](https://user-images.githubusercontent.com/55059378/67139457-fadd7b00-f282-11e9-85a7-ce89728dc5b6.png)
 Output for main issues:
