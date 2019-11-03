@@ -26,10 +26,10 @@ public class WriteIntoExcel2 {
              HSSFSheet sheet = workbook.createSheet("Student");
             
              //create row Header
-             Row rowHeader = sheet.createRow(0);
-             rowHeader.createCell(0).setCellValue("      Matric          ");
-             rowHeader.createCell(1).setCellValue("         Name             ");
-             rowHeader.createCell(2).setCellValue("         Github Link      ");
+             Row rowtitle = sheet.createRow(0);
+             rowtitle.createCell(0).setCellValue("      Matric          ");
+             rowtitle.createCell(1).setCellValue("         Name             ");
+             rowtitle.createCell(2).setCellValue("         Github Link      ");
 
              //set row heading size, font and position
              for (int i = 0; i <= 2; i++) {
@@ -39,7 +39,7 @@ public class WriteIntoExcel2 {
                  font.setFontName(HSSFFont.FONT_ARIAL);
                  style.setFont(font);
                  style.setVerticalAlignment(VerticalAlignment.CENTER);
-                 rowHeader.getCell(i).setCellStyle(style);
+                 rowtitle.getCell(i).setCellStyle(style);
              }
             
              //column size
@@ -50,13 +50,13 @@ public class WriteIntoExcel2 {
                  Row row = sheet.createRow(r);
                  //column 1 : matric
                  Cell Column1 = row.createCell(0);
-                 Column1.setCellValue(info1.getColumn1());
+                 Column1.setCellValue(info1.Column1());
                  //column 2 : name
                  Cell Column2 = row.createCell(1);
-                 Column2.setCellValue(info1.getColumn2());
+                 Column2.setCellValue(info1.Column2());
                  //column 3 : link
                  Cell Column3 = row.createCell(2);
-                 Column3.setCellValue(info1.getColumn3());
+                 Column3.setCellValue(info1.Column3());
                  r++;
              }
              

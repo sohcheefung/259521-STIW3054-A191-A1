@@ -20,8 +20,8 @@ import java.io.IOException;
 public class MainIssueData {
     public List<Retrive> Scrape1() {
         try {
-            Document doc = Jsoup.connect("https://github.com/STIW3054-A191/Main-Issues/issues/1").get();
-            String title = doc.title();
+            Document page = Jsoup.connect("https://github.com/STIW3054-A191/Main-Issues/issues/1").get();
+            String title = page.title();
             System.out.printf("%66s", title + "\n");
             System.out.println("--------------------------------------------------------------------------------------------------------------------");
             System.out.printf("| %-5s| %-17s| %-50s| %-70s\n", "No.","Matric","Name","Link");
@@ -30,7 +30,7 @@ public class MainIssueData {
             List<Retrive> information1 = new ArrayList<Retrive>();
             
             //get the data using class name
-            Elements data = doc.getElementsByClass("js-timeline-item js-timeline-progressive-focus-container");
+            Elements data = page.getElementsByClass("js-timeline-item js-timeline-progressive-focus-container");
             for (int i = 1; i<data.size(); i++){
                 //get the content inside p tag
                 Elements content = data.get(i).getElementsByTag("p");

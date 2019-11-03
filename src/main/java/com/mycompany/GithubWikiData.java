@@ -16,10 +16,10 @@ public class GithubWikiData {
     public List<Retrive> Scrape(){
         try {
             System.out.println("");
-            String URL = "https://github.com/STIW3054-A191/Assignments/wiki/List_of_Student";
-            Document doc = Jsoup.connect(URL).get();
-            String tittle = doc.title();
-            System.out.printf("%66s", tittle + "\n");
+            String Link = "https://github.com/STIW3054-A191/Assignments/wiki/List_of_Student";
+            Document page = Jsoup.connect(Link).get();
+            String title = page.title();
+            System.out.printf("%66s", title + "\n");
             System.out.println("--------------------------------------------------------------------------------");
             System.out.printf("| %-5s| %-17s| %-50s\n","No.","Matric","Name");
             System.out.println("--------------------------------------------------------------------------------");
@@ -28,9 +28,9 @@ public class GithubWikiData {
 
             for (int i = 1; i <= 35; i++) {
                 //Scrape data from table
-                Elements No = doc.select("#wiki-body > div > table > tbody > tr:nth-child(" + i + ") > td:nth-child(1)");
-                Elements Matric = doc.select("#wiki-body > div > table > tbody > tr:nth-child(" + i + ") > td:nth-child(2)");
-                Elements Name = doc.select("#wiki-body > div > table > tbody > tr:nth-child(" + i + ") > td:nth-child(3)");
+                Elements No = page.select("#wiki-body > div > table > tbody > tr:nth-child(" + i + ") > td:nth-child(1)");
+                Elements Matric = page.select("#wiki-body > div > table > tbody > tr:nth-child(" + i + ") > td:nth-child(2)");
+                Elements Name = page.select("#wiki-body > div > table > tbody > tr:nth-child(" + i + ") > td:nth-child(3)");
                
                 
                 System.out.printf("| %-5s| %-17s| %-50s\n",No.text(),Matric.text(),Name.text());

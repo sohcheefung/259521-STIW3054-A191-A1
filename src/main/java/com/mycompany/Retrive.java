@@ -18,7 +18,7 @@ public class Retrive {
         
     }
     
-    public String getColumn1() {
+    public String Column1() {
         return Column1;
     }
 
@@ -26,19 +26,19 @@ public class Retrive {
         this.Column1 = column1;
     }
 
-    public String getColumn2() {
+    public String Column2() {
         return Column2;
     }
 
-    public void forColumn2(String Column2) {
+    public void Column2(String Column2) {
         this.Column2 = Column2;
     }
     
-    public String getColumn3(){
+    public String Column3(){
         return Column3;
     }
     
-    public void forColumn3(String Column3) {
+    public void Column3(String Column3) {
         this.Column3 = Column3;
     }
 }
